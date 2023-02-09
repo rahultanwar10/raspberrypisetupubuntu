@@ -6,11 +6,11 @@ sudo ufw allow 'samba'
 sudo smbpasswd -a rahul << EOF
 rahul
 rahul
-rahul
 EOF
 
 cd /etc/samba/
-sudo echo '[home_jetson_nano]
+cat << EOF | sudo tee -a smb.conf
+[home_jetson_nano]
 path = /home/rahul
 guest ok = no
 guest only = no
@@ -34,5 +34,6 @@ valid users = "rahul"
 force user = "rahul"
 #invalid users = "guest"
 read list =
-write list = "rahul"' >> smb.conf
+write list = "rahul"
+EOF
 ip a
